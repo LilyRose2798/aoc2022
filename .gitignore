@@ -1,3 +1,4 @@
+node_modules/
 build/
 input/*.txt
 !input/dayN.txt
