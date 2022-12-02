@@ -1,0 +1,4 @@
+build/
+input/*.txt
+!input/dayN.txt
+.cookie
