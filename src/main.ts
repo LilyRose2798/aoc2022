@@ -3,6 +3,7 @@ import { performance } from "perf_hooks"
 
 import * as day01 from "./day01"
 import * as day02 from "./day02"
+import * as day03 from "./day03"
 
 type Solver = {
     solveOne: (input: string) => any,
@@ -11,7 +12,8 @@ type Solver = {
 
 const solvers: Solver[] = [
     day01,
-    day02
+    day02,
+    day03
 ]
 
 const padDay = (day: number) => day < 10 ? `0${day}` : day

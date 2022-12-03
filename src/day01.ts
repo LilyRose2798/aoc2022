@@ -1,8 +1,22 @@
+import * as R from "rambda"
 
-const parse = (input: string) => input.trim().split("\n\n").map(x => x.split("\n").map(Number))
+const parse = R.pipe(
+    R.trim,
+    R.split("\n\n"),
+    R.map(R.pipe(
+        R.split("\n"),
+        R.map(Number)
+    ))
+)
 
-const solve = (input: string, n: number) => parse(input).map(x => x.reduce((a, b) => a + b)).sort((a, b) => a - b).slice(-n).reduce((a, b) => a + b)
+const solve = (n: number) => R.pipe(
+    parse,
+    R.map(R.sum),
+    R.sort(R.subtract),
+    x => R.takeLast(n)(x),
+    R.sum
+)
 
-export const solveOne = (input: string) => solve(input, 1)
+export const solveOne = solve(1)
 
-export const solveTwo = (input: string) => solve(input, 3)
+export const solveTwo = solve(3)
