@@ -1,26 +1,20 @@
 import * as R from "rambda"
 
-const parse = R.pipe(
+const solve = (mapFn: (x: number, y: number) => number) => R.pipe(
     R.trim,
     R.split("\n"),
     R.map(x => [
         x.charCodeAt(0) - 65,
         x.charCodeAt(2) - 88
-    ])
-)
-
-const score = (opponent: number, self: number) => (self - opponent + 4) % 3 * 3 + self + 1
-
-const move = (opponent: number, outcome: number) => (outcome + opponent + 2) % 3
-
-export const solveOne = R.pipe(
-    parse,
-    R.map(([x, y]) => score(x, y)),
+    ]),
+    R.map(R.apply(mapFn)),
     R.sum
 )
 
-export const solveTwo = R.pipe(
-    parse,
-    R.map(([x, y]) => score(x, move(x, y))),
-    R.sum
-)
+const score = (them: number, us: number) => (us - them + 4) % 3 * 3 + us + 1
+
+const move = (them: number, res: number) => (res + them + 2) % 3
+
+export const solveOne = solve(score)
+
+export const solveTwo = solve((x, y) => score(x, move(x, y)))
